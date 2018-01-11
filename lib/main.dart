@@ -21,6 +21,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: new MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: <String, WidgetBuilder> {
+            '/category': (BuildContext context) => new MyCategory(),
+        }
     );
   }
 }
@@ -97,11 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
-            new MaterialApp(
-              title: 'Stocks',
-              routes: <String, WidgetBuilder>{
-                '/':         (BuildContext context) => new MyCategory(),
-              },
+            new IconButton(
+              onPressed: () { Navigator.of(context).pushNamed('/category'); },
+              tooltip: 'category',
+              icon: new Icon(Icons.navigate_next),
             ),
           ],
         ),
