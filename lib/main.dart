@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'category.dart';
 
 void main() => runApp(new MyApp());
 
@@ -95,6 +96,12 @@ class _MyHomePageState extends State<MyHomePage> {
             new Text(
               '$_counter',
               style: Theme.of(context).textTheme.display1,
+            ),
+            new MaterialApp(
+              title: 'Stocks',
+              routes: <String, WidgetBuilder>{
+                '/':         (BuildContext context) => new MyCategory(),
+              },
             ),
           ],
         ),
