@@ -19,7 +19,32 @@ class MyCategory extends StatefulWidget {
   _MyCategoryPageState createState() => new _MyCategoryPageState();
 }
 
+class CategoryEntry {
+  const CategoryEntry(this.title, this.icon, this.description);
+  final String title;
+  final IconData icon;
+  final String description;
+}
+
+const List<CategoryEntry> _choices = const<CategoryEntry>[
+  const CategoryEntry("Infrastructure", Icons.store, "Infastructure would include agendas dealing " +
+  "with basic structures and facilities (e.g., buildings, roads, and power) needed for the city"
+  ),
+  const CategoryEntry("Bicycle", Icons.directions_bike, "bikes bikes bikes bikes"
+  ),
+  const CategoryEntry("Housing", Icons.home, "mi cassa, tu cassa"
+  ),
+  const CategoryEntry("Environment", Icons.bug_report, "environment"
+  ),
+];
+
+
+
 class _MyCategoryPageState extends State<MyCategory> {
+
+
+
+
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
@@ -34,6 +59,22 @@ class _MyCategoryPageState extends State<MyCategory> {
           )
         ]
       ),
-    );
+      body: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+              new Center( child: new Text("What do you care about?") ),
+              new Container(
+                  child: new ExpansionPanelList(
+                    children:  _choices.map( (CategoryEntry e){
+                        return new ExpansionPanel(
+                            
+                        );
+                      }).toList()
+                  
+                  ),
+                ),
+            ],
+          )
+      );
   }
 }
