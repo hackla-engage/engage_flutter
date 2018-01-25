@@ -43,7 +43,7 @@ const List<CategoryEntry> _choices = const<CategoryEntry>[
 class _MyCategoryPageState extends State<MyCategory> {
 
 
-
+  String expanded;
 
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -67,7 +67,13 @@ class _MyCategoryPageState extends State<MyCategory> {
                   child: new ExpansionPanelList(
                     children:  _choices.map( (CategoryEntry e){
                         return new ExpansionPanel(
-                            
+                            headerBuilder: (BuildContext context, bool b) => new Row(
+                                children: <Widget>[
+                                  new Icon(e.icon),
+                                  new Text(e.title),
+                                ],
+                            ),
+                            body: new Text(e.description),
                         );
                       }).toList()
                   
