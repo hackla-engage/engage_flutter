@@ -43,7 +43,7 @@ const List<CategoryEntry> _choices = const<CategoryEntry>[
 class _MyCategoryPageState extends State<MyCategory> {
 
 
-  String expanded;
+  String _expanded;
 
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -65,15 +65,27 @@ class _MyCategoryPageState extends State<MyCategory> {
               new Center( child: new Text("What do you care about?") ),
               new Container(
                   child: new ExpansionPanelList(
+                    expansionCallback: (int index, bool isExpanded){
+                      setState( () {
+                        _expanded = _choices[index].title;
+                      });
+                    },
                     children:  _choices.map( (CategoryEntry e){
                         return new ExpansionPanel(
                             headerBuilder: (BuildContext context, bool b) => new Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  new Icon(e.icon),
+                                  new IconButton(
+                                    icon: new Icon(e.icon),
+                                    onPressed: (){
+                                      
+                                    },
+                                  ),
                                   new Text(e.title),
                                 ],
                             ),
                             body: new Text(e.description),
+                            isExpanded: _expanded == e.title,
                         );
                       }).toList()
                   
