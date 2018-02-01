@@ -37,9 +37,11 @@ class _MyCategoryPageState extends State<MyCategory> {
 
   CategoryList _categoryList;
   String _expanded;
+  Set<int> _highlighted;
   @override
   void initState(){
     super.initState();
+    _highlighted = new Set();
     if(_categoryList == null){
       CategoryList.fetch().then( (CategoryList cl){
         setState(() {
@@ -68,9 +70,14 @@ class _MyCategoryPageState extends State<MyCategory> {
                       new IconButton(
                         icon: new Icon(e.icon),
                         onPressed: (){
-
-                          },
-                        ),
+                          setState((){
+                            if(_highlighted.contains(e.id)){
+                              _highlighted.remove(e.id);
+                            }else{
+                              _highlighted.add(e.id);
+                            }
+                          });
+                        }),
                       new Text(e.title),
                     ],
                     ),
