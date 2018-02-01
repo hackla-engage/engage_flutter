@@ -50,8 +50,7 @@ class _MyCategoryPageState extends State<MyCategory> {
   }
   Widget _buildValidCategories(BuildContext context){
     if(_categoryList != null){
-      return new Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      return new ListView(
         children: <Widget>[
            new Center( child: new Text("What do you care about?") ),
            new Container(
