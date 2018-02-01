@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'shared/category_entry.dart';
+import 'loaders/category_loader.dart';
 
 class MyCategory extends StatefulWidget {
   MyCategory({Key key, this.title}) : super(key: key);
@@ -34,9 +35,64 @@ const List<CategoryEntry> _choices = const<CategoryEntry>[
 
 class _MyCategoryPageState extends State<MyCategory> {
 
-
+  CategoryList _categoryList;
   String _expanded;
+  @override
+  void initState(){
+    super.initState();
+    if(_categoryList == null){
+      CategoryList.fetch().then( (CategoryList cl){
+        setState(() {
+          _categoryList = cl;
+        });
+      });
+    }
+  }
+  Widget _buildValidCategories(BuildContext context){
+    if(_categoryList != null){
+      return new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+           new Center( child: new Text("What do you care about?") ),
+           new Container(
+            child: new ExpansionPanelList(
+              expansionCallback: (int index, bool isExpanded){
+                setState( () {
+                  _expanded = _categoryList.entries[index].title;
+                });
+              },
+              children:  _categoryList.entries.map( (CategoryEntry e){
+                return new ExpansionPanel(
+                  headerBuilder: (BuildContext context, bool b) => new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new IconButton(
+                        icon: new Icon(e.icon),
+                        onPressed: (){
 
+                          },
+                        ),
+                      new Text(e.title),
+                    ],
+                    ),
+                  body: new Text(e.description),
+                  isExpanded: _expanded == e.title,
+                );
+              }).toList()
+     
+            ),
+          ),
+        ],
+      );
+    }else{
+      return new Card(
+        child:  new Container(
+          child: const CircularProgressIndicator(),
+          alignment: FractionalOffset.center,
+        ),
+      );
+    }
+  }
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
@@ -51,40 +107,7 @@ class _MyCategoryPageState extends State<MyCategory> {
           )
         ]
       ),
-      body: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-              new Center( child: new Text("What do you care about?") ),
-              new Container(
-                  child: new ExpansionPanelList(
-                    expansionCallback: (int index, bool isExpanded){
-                      setState( () {
-                        _expanded = _choices[index].title;
-                      });
-                    },
-                    children:  _choices.map( (CategoryEntry e){
-                        return new ExpansionPanel(
-                            headerBuilder: (BuildContext context, bool b) => new Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  new IconButton(
-                                    icon: new Icon(e.icon),
-                                    onPressed: (){
-
-                                    },
-                                  ),
-                                  new Text(e.title),
-                                ],
-                            ),
-                            body: new Text(e.description),
-                            isExpanded: _expanded == e.title,
-                        );
-                      }).toList()
-                  
-                  ),
-                ),
-            ],
-          )
-      );
+      body: _buildValidCategories( context),
+    );
   }
 }
