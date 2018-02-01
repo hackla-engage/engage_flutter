@@ -19,20 +19,6 @@ class MyCategory extends StatefulWidget {
   _MyCategoryPageState createState() => new _MyCategoryPageState();
 }
 
-const List<CategoryEntry> _choices = const<CategoryEntry>[
-  const CategoryEntry(0, "Infrastructure", Icons.store, "Infastructure would include agendas dealing " +
-  "with basic structures and facilities (e.g., buildings, roads, and power) needed for the city"
-  ),
-  const CategoryEntry(1, "Bicycle", Icons.directions_bike, "bikes bikes bikes bikes"
-  ),
-  const CategoryEntry(2, "Housing", Icons.home, "mi cassa, tu cassa"
-  ),
-  const CategoryEntry(3, "Environment", Icons.bug_report, "environment"
-  ),
-];
-
-
-
 class _MyCategoryPageState extends State<MyCategory> {
 
   CategoryList _categoryList;
