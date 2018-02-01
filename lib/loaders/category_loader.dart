@@ -17,10 +17,9 @@ class CategoryList{
   }
 
   static List<CategoryEntry> _extractEntries(List tags){
-    List<CategoryEntry> l;
-    //print(tags[0]["id"]);
+    List<CategoryEntry> l = new List();
     tags.forEach( (Map m){
-      l.add(new CategoryEntry(m["id"], m["name"], Icons.home, ""));
+      l.add(new CategoryEntry(m["id"], m["name"], Icons.home, "") );
     });
     return l;
   }
