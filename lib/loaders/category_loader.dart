@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
@@ -11,23 +12,23 @@ class CategoryList{
 
   List<CategoryEntry> entries;
 
-  CategoryList(Map map){
-    entries = _extractEntries(map);
+  CategoryList(List tags){
+    entries = _extractEntries(tags);
   }
 
-  static List<CategoryEntry> _extractEntries(Map map){
+  static List<CategoryEntry> _extractEntries(List tags){
     List<CategoryEntry> l;
-    map.forEach(
-
-    )
-
+    //print(tags[0]["id"]);
+    tags.forEach( (Map m){
+      l.add(new CategoryEntry(m["id"], m["name"], Icons.home, ""));
+    });
     return l;
   }
   
   static Future<CategoryList> fetch() async {
     const CATEGORY_URL = 'https://council-tag.herokuapp.com/api/tags/?format=json';
     print( "***** query ${CATEGORY_URL} ******" );
-    final Map map = JSON.decode( await http.read(CATEGORY_URL) );
-    return new CategoryList(map);
+    final List tags = JSON.decode( await http.read(CATEGORY_URL) );
+    return new CategoryList(tags);
   }
 }
