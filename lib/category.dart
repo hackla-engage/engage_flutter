@@ -64,23 +64,21 @@ class _MyCategoryPageState extends State<MyCategory> {
               },
               children:  _categoryList.entries.map( (CategoryEntry e){
                 return new ExpansionPanel(
-                  headerBuilder: (BuildContext context, bool b) => new Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      new IconButton(
-                        icon: new Icon(e.icon),
-                        onPressed: (){
-                          setState((){
-                            if(_highlighted.contains(e.id)){
-                              _highlighted.remove(e.id);
-                            }else{
-                              _highlighted.add(e.id);
-                            }
-                          });
-                        }),
-                      new Text(e.title),
-                    ],
-                    ),
+                  headerBuilder: (BuildContext context, bool b) =>
+                  new ListTile(
+                    leading: new Icon(e.icon),
+                    title: new Text(e.title),
+                    selected: _highlighted.contains(e.id),
+                    onTap: (){
+                      setState( (){
+                        if(_highlighted.contains(e.id)){
+                            _highlighted.add(e.id);
+                        } else {
+                            _highlighted.add(e.id);
+                        }
+                      });
+                    },         
+                  ),
                   body: new Text(e.description),
                   isExpanded: _expanded == e.title,
                 );
@@ -90,7 +88,7 @@ class _MyCategoryPageState extends State<MyCategory> {
           ),
         ],
       );
-    }else{
+    } else {
       return new Card(
         child:  new Container(
           child: const CircularProgressIndicator(),
