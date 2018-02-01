@@ -72,7 +72,7 @@ class _MyCategoryPageState extends State<MyCategory> {
                     onTap: (){
                       setState( (){
                         if(_highlighted.contains(e.id)){
-                            _highlighted.add(e.id);
+                            _highlighted.remove(e.id);
                         } else {
                             _highlighted.add(e.id);
                         }
