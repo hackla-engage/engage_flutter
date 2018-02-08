@@ -35,7 +35,6 @@ class _MyFeedPageState extends State<MyFeed> {
           )
         ]
       ),
-      
     );
   }
 }

@@ -46,7 +46,8 @@ class _MyCategoryPageState extends State<MyCategory> {
             child: new ExpansionPanelList(
               expansionCallback: (int index, bool isExpanded){
                 setState( () {
-                  _expanded = _categoryList.entries[index].title;
+                  var _temp = _categoryList.entries[index].title;
+                  _expanded = _temp == _expanded ? "" : _temp;
                 });
               },
               children:  _categoryList.entries.map( (CategoryEntry e){
