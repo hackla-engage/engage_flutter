@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'shared/category_entry.dart';
 import 'loaders/category_loader.dart';
+import 'feed.dart';
 
 class MyCategory extends StatefulWidget {
   MyCategory({Key key, this.title}) : super(key: key);
@@ -23,7 +24,7 @@ class _MyCategoryPageState extends State<MyCategory> {
 
   CategoryList _categoryList;
   String _expanded;
-  Set<int> _highlighted;
+  Set<CategoryEntry> _highlighted;
   @override
   void initState(){
     super.initState();
@@ -54,13 +55,13 @@ class _MyCategoryPageState extends State<MyCategory> {
                   new ListTile(
                     leading: new Icon(e.icon),
                     title: new Text(e.title),
-                    selected: _highlighted.contains(e.id),
+                    selected: _highlighted.contains(e),
                     onTap: (){
                       setState( (){
-                        if(_highlighted.contains(e.id)){
-                            _highlighted.remove(e.id);
+                        if(_highlighted.contains(e)){
+                            _highlighted.remove(e);
                         } else {
-                            _highlighted.add(e.id);
+                            _highlighted.add(e);
                         }
                       });
                     },         
@@ -98,6 +99,15 @@ class _MyCategoryPageState extends State<MyCategory> {
         ]
       ),
       body: _buildValidCategories( context),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: (){
+            Navigator.push(context, new MaterialPageRoute(
+              builder: (BuildContext context) => new MyFeed( entries: _highlighted,),
+            ));
+        },
+        tooltip: 'Feed Page',
+        child: new Icon(Icons.navigate_next),
+      ),
     );
   }
 }
