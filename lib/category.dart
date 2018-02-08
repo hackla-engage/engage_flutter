@@ -30,11 +30,11 @@ class _MyCategoryPageState extends State<MyCategory> {
     super.initState();
     _highlighted = new Set();
     if(_categoryList == null){
-      CategoryList.fetch().then( (CategoryList cl){
+      CategoryList.fetch().then( (CategoryList cl) =>
         setState(() {
           _categoryList = cl;
-        });
-      });
+        })
+      );
     }
   }
   Widget _buildValidCategories(BuildContext context){
@@ -44,12 +44,11 @@ class _MyCategoryPageState extends State<MyCategory> {
            new Center( child: new Text("What do you care about?") ),
            new Container(
             child: new ExpansionPanelList(
-              expansionCallback: (int index, bool isExpanded){
+              expansionCallback: (int index, bool isExpanded) =>
                 setState( () {
                   var _temp = _categoryList.entries[index].title;
                   _expanded = _temp == _expanded ? "" : _temp;
-                });
-              },
+                }),
               children:  _categoryList.entries.map( (CategoryEntry e){
                 return new ExpansionPanel(
                   headerBuilder: (BuildContext context, bool b) =>
@@ -57,15 +56,14 @@ class _MyCategoryPageState extends State<MyCategory> {
                     leading: new Icon(e.icon),
                     title: new Text(e.title),
                     selected: _highlighted.contains(e),
-                    onTap: (){
+                    onTap: () =>
                       setState( (){
                         if(_highlighted.contains(e)){
                             _highlighted.remove(e);
                         } else {
                             _highlighted.add(e);
                         }
-                      });
-                    },         
+                      }),
                   ),
                   body: new Text(e.description),
                   isExpanded: _expanded == e.title,
@@ -101,11 +99,10 @@ class _MyCategoryPageState extends State<MyCategory> {
       ),
       body: _buildValidCategories( context),
       floatingActionButton: new FloatingActionButton(
-        onPressed: (){
+        onPressed: () =>
             Navigator.push(context, new MaterialPageRoute(
               builder: (BuildContext context) => new MyFeed( entries: _highlighted,),
-            ));
-        },
+            )),
         tooltip: 'Feed Page',
         child: new Icon(Icons.navigate_next),
       ),

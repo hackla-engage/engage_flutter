@@ -17,9 +17,9 @@ class CategoryList{
 
   static List<CategoryEntry> _extractEntries(List tags){
     List<CategoryEntry> l = new List();
-    tags.forEach( (Map m){
-      l.add(new CategoryEntry(m["id"], m["name"], Icons.home, "empty sample mi casa text") );
-    });
+    tags.forEach( (Map m) =>
+      l.add(new CategoryEntry(m["id"], m["name"], Icons.home, "empty sample mi casa text"))
+    );
     return l;
   }
   
