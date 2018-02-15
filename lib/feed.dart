@@ -32,12 +32,25 @@ class _MyFeedPageState extends State<MyFeed> {
   Widget _buildTile(BuildContext context, AgendaEntry e){
     return new Card(
       child: new Column(
+        
         children: <Widget>[
+          new Row(
+            children: <Widget>[
+              new Text("(${e.id})"),
+            ],
+          ),
           new ListTile(
             leading: new Icon(e.icon),
             title: new Text(e.title),
-
           ),
+          new Row(
+            children: <Widget>[
+              new IconButton(
+                icon: new Icon(Icons.share),
+                onPressed: (){},
+              )
+            ],
+          )
         ],
       ),
     );
