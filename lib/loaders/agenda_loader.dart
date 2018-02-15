@@ -7,30 +7,41 @@ import '../shared/category_entry.dart';
 
 class AgendaList{
   List<AgendaEntry> entries;
+  String tagName;
 
   List<AgendaEntry> _extractEntries(Map agendas) {
     List l = new List();
     agendas['items'].forEach((Map m){
-      AgendaEntry entry = new AgendaEntry(m["id"], m["title"], 
-          agendas["tag"], m["summary"], m["department"], 
+      AgendaEntry entry = new AgendaEntry(m["id"], m["title"], m["summary"], m["department"], 
           m["background"], m["supplemental"], m["sponsors"], m["agenda"] );
       l.add(entry);
     });
     return l;
 
   }
-  Stream<List<AgendaEntry>> fetch(Set<CategoryEntry> categories) async * {
-    const CATEGORY_URL = 'http://council-tag.herokuapp.com/api/tag/Learning/agenda/items?format=json';
-    http.read(CATEGORY_URL).then((String text ) { yield _extractEntries(JSON.decode(text)); } );
-    final List agendas = JSON.decode( await  );
+  static Stream<AgendaEntry> fetch(Set<CategoryEntry> categories) async* {
+    var iter = categories.iterator;
+    while(iter.moveNext()){
+      var url = _makeUrl(iter.current.title);
+      printQuery(url);
+      String response = await http.read(url);
+      var agendas = JSON.decode(response);
+      var l = agendas['items'];
+      for( int i = 0; i < l.length; i++){
+          var m = l[i];
+          yield new AgendaEntry(m["id"], m["title"], m["summary"], m["department"], 
+              m["background"], m["supplemental"], m["sponsors"], m["agenda"] );
+      }
+    
+    }
   }
 
-  String _make_url(String tagName) {
-    const CATEGORY_URL = 'http://council-tag.herokuapp.com/api/tag/${tagName}/agenda/items?format=json';
+  static String _makeUrl(String tagName) {
+    var CATEGORY_URL = 'http://council-tag.herokuapp.com/api/tag/${tagName}/agenda/items?format=json';
     return CATEGORY_URL;
   }
 
-  void _print_query_url(String url){
+  static void printQuery(String url){
     print( "***** query ${url} ******" );
   }
   
