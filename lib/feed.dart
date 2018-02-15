@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'shared/agenda_entry.dart';
+import 'loaders/agenda_loader.dart';
 import 'shared/category_entry.dart';
 
 class MyFeed extends StatefulWidget {
@@ -19,9 +20,32 @@ class MyFeed extends StatefulWidget {
 }
 
 class _MyFeedPageState extends State<MyFeed> {
+  List<AgendaEntry> agendaList = new List();
+  void initState(){
+    super.initState();
+    agendaList.clear();
+    var stream = AgendaList.fetch(widget.entries);
+    stream.listen((AgendaEntry e)=>setState(()=>agendaList.add(e)));
+  }
+  
+  //https://docs.flutter.io/flutter/material/Card-class.html
+  Widget _buildTile(BuildContext context, AgendaEntry e){
+    return new Card(
+      child: new Column(
+        children: <Widget>[
+          new ListTile(
+            leading: new Icon(e.icon),
+            title: new Text(e.title),
+
+          ),
+        ],
+      ),
+    );
+  }
 
   
   Widget build(BuildContext context) {
+    var agendas = agendaList;
     return new Scaffold(
       appBar: new AppBar(
         actions: <Widget>[
@@ -34,6 +58,9 @@ class _MyFeedPageState extends State<MyFeed> {
             onPressed: () {},
           )
         ]
+      ),
+      body: new ListView(
+        children: agendas.map(( AgendaEntry e ) => _buildTile(context, e)).toList(),
       ),
     );
   }

@@ -29,7 +29,7 @@ class AgendaList{
       var l = agendas['items'];
       for( int i = 0; i < l.length; i++){
           var m = l[i];
-          yield new AgendaEntry(m["id"], m["title"], m["summary"], m["department"], 
+          yield new AgendaEntry(m["id"], iter.current.icon, m["title"], m["summary"], m["department"], 
               m["background"], m["supplemental"], m["sponsors"], m["agenda"] );
       }
     
