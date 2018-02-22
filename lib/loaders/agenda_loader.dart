@@ -12,7 +12,7 @@ class AgendaList{
   List<AgendaEntry> _extractEntries(Map agendas) {
     List l = new List();
     agendas['items'].forEach((Map m){
-      AgendaEntry entry = new AgendaEntry(m["id"], m["title"], m["summary"], m["department"], 
+      AgendaEntry entry = new AgendaEntry(m["id"], Icons.home, m["title"], m["summary"], m["department"], 
           m["background"], m["supplemental"], m["sponsors"], m["agenda"] );
       l.add(entry);
     });
