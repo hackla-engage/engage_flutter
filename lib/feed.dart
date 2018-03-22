@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'shared/agenda_entry.dart';
 import 'loaders/agenda_loader.dart';
 import 'shared/category_entry.dart';
+
 
 class MyFeed extends StatefulWidget {
   MyFeed({Key key, this.entries}) : super(key: key);
@@ -37,6 +40,7 @@ class _MyFeedPageState extends State<MyFeed> {
           new Row(
             children: <Widget>[
               new Text("(${e.id})"),
+              new Text(new DateFormat.yMd().add_Hm().format(e.meetingTime)),
             ],
           ),
           new ListTile(
