@@ -12,7 +12,7 @@ class AgendaList{
   List<AgendaEntry> _extractEntries(Map agendas) {
     List l = new List();
     agendas['items'].forEach((Map m){
-      AgendaEntry entry = new AgendaEntry(m["id"], Icons.home, m["title"], m["summary"], m["department"], 
+      AgendaEntry entry = new AgendaEntry(m["id"], Icons.home, m["title"], m["summary"], , m["recommendations"]["recommendation"], m["department"], 
           m["background"], m["supplemental"], m["sponsors"], m["agenda"] );
       l.add(entry);
     });
@@ -29,8 +29,22 @@ class AgendaList{
       var l = agendas['items'];
       for( int i = 0; i < l.length; i++){
           var m = l[i];
+          String body = "";
+          if (m["body"] is List) {
+            List b = m["body"];
+            body = b.join("\n");
+          }
+          String recommendation = "";
+          if(m["recommendations"] is List){
+            List r = m["recommendations"];
+            if(r.length > 0 ){
+              Map a = r[0];
+              recommendation = a["recommendation"];
+            }
+          }
           yield new AgendaEntry(m["id"], iter.current.icon, new DateTime.fromMillisecondsSinceEpoch(m["meeting_time"] * 1000), 
-            m["title"], m["summary"], m["department"], m["background"], m["supplemental"], m["sponsors"], m["agenda"] );
+            m["title"],  m["summary"], recommendation, m["department"], m["background"], 
+            m["supplemental"], m["sponsors"], m["agenda"], body );
       }
     
     }
