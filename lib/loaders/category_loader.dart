@@ -17,16 +17,16 @@ class CategoryList{
 
   static List<CategoryEntry> _extractEntries(List tags){
     List<CategoryEntry> l = new List();
-    tags.forEach( (Map m) =>
+    tags.forEach( (m) =>
       l.add(new CategoryEntry(m["id"], m["name"], Icons.home, m["description"]))
     );
     return l;
   }
   
   static Future<CategoryList> fetch() async {
-    const CATEGORY_URL = 'https://council-tag.herokuapp.com/api/tags/?format=json';
-    print( "***** query ${CATEGORY_URL} ******" );
-    final List tags = JSON.decode( await http.read(CATEGORY_URL) );
+    const categoryURL = 'https://council-tag.herokuapp.com/api/tags/?format=json';
+    print( "***** query $categoryURL ******" );
+    final List tags = json.decode( await http.read(categoryURL) );
     return new CategoryList(tags);
   }
 }

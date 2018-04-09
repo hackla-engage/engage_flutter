@@ -35,7 +35,6 @@ class _MyFeedPageState extends State<MyFeed> {
   Widget _buildTile(BuildContext context, AgendaEntry e){
     return new Card(
       child: new Column(
-        
         children: <Widget>[
           new Row(
             children: <Widget>[

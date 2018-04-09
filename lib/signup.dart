@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       ),
       home: new MySignupPage(title: 'Engage'),
       routes: <String, WidgetBuilder> {
-            '/category': (BuildContext context) => new MyCategory(),
-        }
+        '/category': (BuildContext context) => new MyCategory(),
+      }
     );
   }
 }
