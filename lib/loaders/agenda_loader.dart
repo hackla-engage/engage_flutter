@@ -52,7 +52,7 @@ class AgendaList{
   }
 
   static String _makeUrl(String tagName) {
-    String categoryURL = 'http://council-tag.herokuapp.com/api/tag/$tagName/agenda/items?format=json';
+    String categoryURL = 'http://council-tag.herokuapp-dev.com/api/tag/$tagName/agenda/items?format=json';
     return categoryURL;
   }
 

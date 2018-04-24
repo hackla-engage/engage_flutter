@@ -24,7 +24,7 @@ class CategoryList{
   }
   
   static Future<CategoryList> fetch() async {
-    const categoryURL = 'https://council-tag.herokuapp.com/api/tags/?format=json';
+    const categoryURL = 'https://council-tag-dev.herokuapp.com/api/tags/?format=json';
     print( "***** query $categoryURL ******" );
     final List tags = json.decode( await http.read(categoryURL) );
     return new CategoryList(tags);
