@@ -8,7 +8,6 @@ import 'package:engage_flutter/shared/category_entry.dart';
 import 'package:engage_flutter/loaders/category_loader.dart';
 
 import 'dart:core';
-import 'dart:async';
 
 void main() {
   test('curl agendas', () async {
