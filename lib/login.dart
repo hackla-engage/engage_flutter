@@ -45,18 +45,6 @@ class MySignupPage extends StatefulWidget {
 }
 
 class _MySignupPageState extends State<MySignupPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +80,10 @@ class _MySignupPageState extends State<MySignupPage> {
                 labelText: 'Enter Password',
               ),
             ),
+            new FlatButton(
+              onPressed: () { Navigator.of(context).pushNamed('/category'); },
+              child: new Text("Login"),
+            ),
             new IconButton(
               onPressed: () { Navigator.of(context).pushNamed('/category'); },
               tooltip: 'category',
@@ -101,7 +93,7 @@ class _MySignupPageState extends State<MySignupPage> {
         ),
       ),
       floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: (){},
         tooltip: 'Increment',
         child: new Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
