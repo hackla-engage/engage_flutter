@@ -47,6 +47,17 @@ class MySignupPage extends StatefulWidget {
 
 class _MySignupPageState extends State<MySignupPage> {
 
+  String _email, _password;
+  bool _loginFailed;
+  @override
+  void initState() {
+      // TODO: implement initState
+    super.initState();
+    _loginFailed = false;
+    _email = "";
+    _password = "";
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -68,6 +79,7 @@ class _MySignupPageState extends State<MySignupPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new TextFormField(
+              onSaved: (e) => _email = e,
               autocorrect: false, 
               obscureText: false,
               decoration: const InputDecoration(
@@ -77,6 +89,7 @@ class _MySignupPageState extends State<MySignupPage> {
               
             ),
             new TextFormField(
+              onSaved: (p) => _password = p,
               autocorrect: false, 
               obscureText: true,
               decoration: const InputDecoration(
