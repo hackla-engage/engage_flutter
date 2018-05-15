@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:validate/validate.dart';
 import 'category.dart';
 
 class MyApp extends StatelessWidget {
@@ -70,8 +71,10 @@ class _MySignupPageState extends State<MySignupPage> {
               autocorrect: false, 
               obscureText: false,
               decoration: const InputDecoration(
-                labelText: 'UserName',
+                labelText: 'Email',
               ),
+              keyboardType: TextInputType.emailAddress,
+              
             ),
             new TextFormField(
               autocorrect: false, 
@@ -81,12 +84,13 @@ class _MySignupPageState extends State<MySignupPage> {
               ),
             ),
             new FlatButton(
+              color: Colors.lightBlueAccent,
               onPressed: () { Navigator.of(context).pushNamed('/category'); },
               child: new Text("Login"),
             ),
             new IconButton(
               onPressed: () { Navigator.of(context).pushNamed('/category'); },
-              tooltip: 'category',
+              tooltip: 'no login category',
               icon: new Icon(Icons.navigate_next),
             ),
           ],
