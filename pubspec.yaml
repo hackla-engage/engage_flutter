@@ -10,6 +10,7 @@ dependencies:
   cupertino_icons: ^0.1.0
   intl: "^0.15.4"
   share: "^0.4.0"
+  validate: "^1.6.0"
 
 
 dev_dependencies:
