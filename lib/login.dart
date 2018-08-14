@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:validate/validate.dart';
 import 'category.dart';
+import 'shared/user.dart';
+import 'posts/user_helper.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -27,6 +29,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
+enum loginState {
+    NONE, CONNECTING, SUCCESS, ERROR
+}
+
 class MySignupPage extends StatefulWidget {
   MySignupPage({Key key, this.title}) : super(key: key);
 
@@ -47,15 +53,56 @@ class MySignupPage extends StatefulWidget {
 
 class _MySignupPageState extends State<MySignupPage> {
 
+  loginState _loginState;
   String _email, _password;
-  bool _loginFailed;
+  User _userData;
   @override
   void initState() {
       // TODO: implement initState
     super.initState();
-    _loginFailed = false;
+    _loginState = loginState.NONE;
     _email = "";
     _password = "";
+  }
+
+  Widget _loginWidget(BuildContext context) {
+    Widget buttonStateWidget;
+    switch(_loginState) {
+      case loginState.CONNECTING:
+        buttonStateWidget =  CircularProgressIndicator();
+        break;
+      case loginState.SUCCESS:
+        buttonStateWidget = new Text("Success");
+        break;
+      default:
+        buttonStateWidget = new Text("Login");
+    };
+    return new FlatButton(
+      color: Colors.lightBlueAccent,
+      onPressed: () {
+        setState(() {
+                  _loginState = loginState.CONNECTING;
+                });
+        UserHelper.loginUser(_email, _password).then( (response) {
+          if(response == null) {
+              Scaffold.of(context).showSnackBar(SnackBar(content: Text('login failed')));
+              setState(() {
+                _loginState = loginState.ERROR;
+              });
+          } else {
+            _userData = response;
+            setState(() {
+             _loginState = loginState.SUCCESS;
+            });
+            Navigator.of(context).pushNamed('/category'); 
+          }
+          setState(() {
+             _loginState = loginState.NONE;
+          });
+        });
+      },
+      child: buttonStateWidget,
+    );
   }
 
   @override
@@ -66,6 +113,7 @@ class _MySignupPageState extends State<MySignupPage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    
     return new Scaffold(
       appBar: new AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -96,11 +144,7 @@ class _MySignupPageState extends State<MySignupPage> {
                 labelText: 'Enter Password',
               ),
             ),
-            new FlatButton(
-              color: Colors.lightBlueAccent,
-              onPressed: () { Navigator.of(context).pushNamed('/category'); },
-              child: new Text("Login"),
-            ),
+            _loginWidget(context),
             new IconButton(
               onPressed: () { Navigator.of(context).pushNamed('/category'); },
               tooltip: 'no login category',
