@@ -77,7 +77,9 @@ class _MySignupPageState extends State<MySignupPage> {
       default:
         buttonStateWidget = new Text("Login");
     };
-    return new FlatButton(
+    return new Builder(
+      builder: (BuildContext context) {
+      return new FlatButton(
       color: Colors.lightBlueAccent,
       onPressed: () {
         setState(() {
@@ -85,7 +87,9 @@ class _MySignupPageState extends State<MySignupPage> {
                 });
         UserHelper.loginUser(_email, _password).then( (response) {
           if(response == null) {
-              Scaffold.of(context).showSnackBar(SnackBar(content: Text('login failed')));
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: new Text('Error Login'),
+              ));
               setState(() {
                 _loginState = loginState.ERROR;
               });
@@ -102,6 +106,8 @@ class _MySignupPageState extends State<MySignupPage> {
         });
       },
       child: buttonStateWidget,
+      );
+      }
     );
   }
 
