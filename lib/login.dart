@@ -55,7 +55,7 @@ class _MySignupPageState extends State<MySignupPage> {
 
   loginState _loginState;
   String _email, _password;
-  User _userData;
+  User _userToken;
   final  _userTextController = TextEditingController();
   final  _passwordTextController = TextEditingController();
   @override
@@ -96,7 +96,7 @@ class _MySignupPageState extends State<MySignupPage> {
         setState(() {
                   _loginState = loginState.CONNECTING;
                 });
-        print("******" + _email + " " + _password + "*********");
+        //print("******" + _email + " " + _password + "*********");
         UserHelper.loginUser(_email, _password).then( (response) {
           if(response == null) {
               Scaffold.of(context).showSnackBar(new SnackBar(
@@ -106,11 +106,11 @@ class _MySignupPageState extends State<MySignupPage> {
                 _loginState = loginState.ERROR;
               });
           } else {
-            _userData = response;
+            _userToken = response;
             setState(() {
              _loginState = loginState.SUCCESS;
             });
-            Navigator.of(context).pushNamed('/category'); 
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyCategory(userToken: _userToken))); 
           }
           setState(() {
              _loginState = loginState.NONE;

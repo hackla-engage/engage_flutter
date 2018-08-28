@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'shared/category_entry.dart';
 import 'loaders/category_loader.dart';
+import 'shared/user.dart';
 import 'feed.dart';
 
 class MyCategory extends StatefulWidget {
-  MyCategory({Key key, this.title}) : super(key: key);
+  MyCategory({Key key, this.title, this.userToken}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -14,7 +15,7 @@ class MyCategory extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
-
+  final User userToken;
   final String title;
   @override
   _MyCategoryPageState createState() => new _MyCategoryPageState();
