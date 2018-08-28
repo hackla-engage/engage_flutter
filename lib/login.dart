@@ -56,6 +56,8 @@ class _MySignupPageState extends State<MySignupPage> {
   loginState _loginState;
   String _email, _password;
   User _userData;
+  final  _userTextController = TextEditingController();
+  final  _passwordTextController = TextEditingController();
   @override
   void initState() {
       // TODO: implement initState
@@ -63,6 +65,15 @@ class _MySignupPageState extends State<MySignupPage> {
     _loginState = loginState.NONE;
     _email = "";
     _password = "";
+    _userTextController.addListener(() => _email = _userTextController.text);
+    _passwordTextController.addListener(() => _password = _passwordTextController.text);
+  }
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    super.dispose();
+    _userTextController.dispose();
+    _passwordTextController.dispose();
   }
 
   Widget _loginWidget(BuildContext context) {
@@ -85,6 +96,7 @@ class _MySignupPageState extends State<MySignupPage> {
         setState(() {
                   _loginState = loginState.CONNECTING;
                 });
+        print("******" + _email + " " + _password + "*********");
         UserHelper.loginUser(_email, _password).then( (response) {
           if(response == null) {
               Scaffold.of(context).showSnackBar(new SnackBar(
@@ -133,7 +145,8 @@ class _MySignupPageState extends State<MySignupPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new TextFormField(
-              onSaved: (e) => _email = e,
+              //onSaved: (e) => _email = e,
+              controller: _userTextController,
               autocorrect: false, 
               obscureText: false,
               decoration: const InputDecoration(
@@ -143,7 +156,8 @@ class _MySignupPageState extends State<MySignupPage> {
               
             ),
             new TextFormField(
-              onSaved: (p) => _password = p,
+              //onSaved: (p) => _password = p,
+              controller: _passwordTextController,
               autocorrect: false, 
               obscureText: true,
               decoration: const InputDecoration(
