@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import '../shared/agenda_entry.dart';
 import '../shared/category_entry.dart';
 
+import '../url/engage_backend.dart';
+
 class AgendaList{
   List<AgendaEntry> entries;
   String tagName;
@@ -52,7 +54,7 @@ class AgendaList{
   }
 
   static String _makeUrl(String tagName) {
-    String categoryURL = 'http://council-tag-dev.herokuapp.com/api/tag/$tagName/agenda/items?format=json';
+    String categoryURL = ENGAGE_BACKEND_API_URL + 'tag/$tagName/agenda/items?format=json';
     return categoryURL;
   }
 

@@ -3,7 +3,7 @@ import 'dart:async' show Future;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../shared/category_entry.dart';
-
+import '../url/engage_backend.dart';
 
 
 
@@ -24,7 +24,7 @@ class CategoryList{
   }
   
   static Future<CategoryList> fetch() async {
-    const categoryURL = 'https://council-tag-dev.herokuapp.com/api/tags/?format=json';
+    const categoryURL = ENGAGE_BACKEND_API_URL + 'tags/?format=json';
     print( "***** query $categoryURL ******" );
     final List tags = json.decode( await http.read(categoryURL) );
     return new CategoryList(tags);
