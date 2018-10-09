@@ -24,9 +24,15 @@ class CategoryList{
   }
   
   static Future<CategoryList> fetch() async {
-    const categoryURL = ENGAGE_BACKEND_API_URL + 'tags/?format=json';
+    const categoryURL = ENGAGE_BACKEND_API_URL + 'tags/';
+    /* needs accept : application/json header 
+    * https://github.com/hackla-engage/engage-backend/issues/127
+    */
+    const headers = {
+      'accept': 'application/json'
+    };
     print( "***** query $categoryURL ******" );
-    final List tags = json.decode( await http.read(categoryURL) );
+    final List tags = json.decode( await http.read(categoryURL, headers: headers) );
     return new CategoryList(tags);
   }
 }
